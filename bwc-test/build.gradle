@@ -257,7 +257,7 @@ tasks.register("${baseName}#fullRestartClusterTask", StandaloneRestIntegTestTask
 // A bwc test suite which runs all the bwc tasks combined.
 task bwcTestSuite(type: StandaloneRestIntegTestTask) {
     exclude '**/**' // Do not run any tests as part of this aggregate task
-//    dependsOn tasks.named("${baseName}#mixedClusterTask")
-//    dependsOn tasks.named("${baseName}#rollingUpgradeClusterTask")
+    dependsOn tasks.named("${baseName}#mixedClusterTask")
+    dependsOn tasks.named("${baseName}#rollingUpgradeClusterTask")
     dependsOn tasks.named("${baseName}#fullRestartClusterTask")
 }

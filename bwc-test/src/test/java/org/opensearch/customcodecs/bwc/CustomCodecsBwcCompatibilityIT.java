@@ -48,7 +48,7 @@ import org.opensearch.test.rest.OpenSearchRestTestCase;
 import static org.opensearch.client.RestClientBuilder.DEFAULT_MAX_CONN_PER_ROUTE;
 import static org.opensearch.client.RestClientBuilder.DEFAULT_MAX_CONN_TOTAL;
 
-public class CustomCodecsCompatibilityIT extends OpenSearchRestTestCase {
+public class CustomCodecsBwcCompatibilityIT extends OpenSearchRestTestCase {
     private ClusterType CLUSTER_TYPE;
     private String CLUSTER_NAME;
     private static RestClient testUserRestClient = null;
@@ -182,6 +182,7 @@ public class CustomCodecsCompatibilityIT extends OpenSearchRestTestCase {
      */
 
     private void ingestData(String index) throws IOException {
+        assertTrue(indexExists(index));
         StringBuilder bulkRequestBody = new StringBuilder();
         ObjectMapper objectMapper = new ObjectMapper();
         int numberOfRequests = Randomness.get().nextInt(10);
@@ -234,6 +235,7 @@ public class CustomCodecsCompatibilityIT extends OpenSearchRestTestCase {
     private void createIndexIfNotExists(String index) throws IOException {
 
         if (indexExists(index)) {
+            logger.info("Index {} already created for the domain", index);
             return;
         }
 
